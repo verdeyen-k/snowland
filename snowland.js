@@ -4,7 +4,7 @@
 (() => {
   // ── The rules ────────────────────────────────────────────────────────────
   const N = 11;                    // the field is N × N squares
-  const STEPS = 2, RANGE = 4, TOWER_RANGE = 7, SCOOP = 2, MAX_SNOW = 10, START_SNOW = 1, WALL_HP = 2;
+  const STEPS = 2, RANGE = 4, TOWER_RANGE = 7, TOWER_TO_TOWER = 4, SCOOP = 1, MAX_SNOW = 10, START_SNOW = 1, WALL_HP = 2;
   const COST = { throw: 1, wall: 3, tower: 5 };
   const COLORS = ['#ff6b6b', '#51cf66', '#4dabf7', '#ffd43b'];
   const COLOR_NAMES = ['Red', 'Green', 'Blue', 'Yellow'];
@@ -51,7 +51,8 @@
   const playerAt = (st, x, y) => st.players.findIndex(p => !p.out && p.x === x && p.y === y);
   const wallAt = (st, x, y) => { const b = st.builds.get(key(x, y)); return b && b.k === 'wall'; };
   const solid = (st, x, y) => !inField(x, y) || st.trees.has(key(x, y)) || wallAt(st, x, y);
-  const rangeAt = (st, x, y) => { const b = st.builds.get(key(x, y)); return b && b.k === 'tower' ? TOWER_RANGE : RANGE; };
+  const towerAt = (st, x, y) => { const b = st.builds.get(key(x, y)); return b && b.k === 'tower'; };
+  const rangeAt = (st, x, y) => towerAt(st, x, y) ? TOWER_RANGE : RANGE;
 
   // Squares player i can walk to this turn (key → steps): up to STEPS steps, around trees, walls and other players.
   function reach(st, i) {
@@ -69,8 +70,10 @@
   }
 
   // Where a snowball thrown from (x, y) in direction d goes: the squares it flies over, and what it hits.
+  // Someone on a tower can only be hit from another tower, TOWER_TO_TOWER squares away or less; any other
+  // snowball just splats against the tower.
   function flight(st, x, y, d) {
-    const [dx, dy] = DIRS[d], path = [], r = rangeAt(st, x, y);
+    const [dx, dy] = DIRS[d], path = [], r = rangeAt(st, x, y), high = towerAt(st, x, y);
     for (let k = 1; k <= r; k++) {
       const tx = x + dx * k, ty = y + dy * k;
       if (!inField(tx, ty)) break;
@@ -78,6 +81,7 @@
       if (st.trees.has(key(tx, ty))) return { path, hit: 'tree' };
       if (wallAt(st, tx, ty)) return { path, hit: 'wall' };
       const v = playerAt(st, tx, ty);
+      if (v >= 0 && towerAt(st, tx, ty) && !(high && k <= TOWER_TO_TOWER)) return { path, hit: 'tower' };
       if (v >= 0) return { path, hit: 'player', victim: v };
     }
     return { path, hit: null };

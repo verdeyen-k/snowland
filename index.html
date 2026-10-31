@@ -84,10 +84,10 @@
   <div class="card">
     <p>Take turns in a snowy field. On your turn, walk up to 2 squares, then do one thing:</p>
     <ul class="rules">
-      <li>✋ <b>Scoop</b> up 2 snow</li>
+      <li>✋ <b>Scoop</b> up 1 snow</li>
       <li>❄️ <b>Throw</b> a snowball (1 snow) in a straight line, 4 squares</li>
       <li>🧱 <b>Wall</b> (3 snow) blocks snowballs. Two hits break it.</li>
-      <li>🗼 <b>Tower</b> (5 snow) under your feet. Throw 7 squares from up there!</li>
+      <li>🗼 <b>Tower</b> (5 snow) under your feet. Throw 7 squares from up there, and only someone on another tower within 4 squares can hit you!</li>
     </ul>
     <p class="muted">Get hit and you're out. Trees stop snowballs too.</p>
   </div>
@@ -143,7 +143,7 @@
   <div class="board-wrap"><canvas id="canvas" aria-label="The snowy field"></canvas></div>
   <p id="hint"></p>
   <div class="acts">
-    <button type="button" id="act-scoop">✋<small>Scoop +2</small></button>
+    <button type="button" id="act-scoop">✋<small>Scoop +1</small></button>
     <button type="button" id="act-throw">❄️<small>Throw 1</small></button>
     <button type="button" id="act-wall">🧱<small>Wall 3</small></button>
     <button type="button" id="act-tower">🗼<small>Tower 5</small></button>
@@ -164,6 +164,6 @@
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script src="snowland.js?v=1"></script>
+<script src="snowland.js?v=2"></script>
 </body>
 </html>

@@ -8,10 +8,10 @@ Play it at https://verdeyen-k.github.io/snowland/
 
 Everyone starts in a corner of a snowy field. On your turn, walk up to 2 squares, then do one thing:
 
-- ✋ **Scoop**: pick up 2 snow.
+- ✋ **Scoop**: pick up 1 snow.
 - ❄️ **Throw** (1 snow): a snowball flies 4 squares in a straight line (any of 8 directions). It stops at the first tree, wall or player.
 - 🧱 **Wall** (3 snow): build a wall on a square next to you. Walls block snowballs and people. Two hits break one.
-- 🗼 **Tower** (5 snow): build a tower under your feet. Snowballs thrown from a tower fly 7 squares. Anyone can climb it.
+- 🗼 **Tower** (5 snow): build a tower under your feet. Snowballs thrown from a tower fly 7 squares. While you stand on a tower, snowballs from the ground can't hit you: only someone on another tower 4 squares away or less can. Anyone can climb it.
 - ⏭️ **Skip**.
 
 Get hit and you're out (the host can choose 1, 2 or 3 hits). The last one standing wins.
